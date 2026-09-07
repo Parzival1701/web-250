@@ -3,7 +3,7 @@ class mini
 {
   var  string $name = 'mini';
   var int $creationDate;
-  function fullName()
+  public function fullName()
   {
     return $this->name .  "<br>";
   }
@@ -12,7 +12,7 @@ class mini
 class cooper extends mini
 {
   var string $tuning = 'cooper';
-  function fullName()
+  public function fullName()
   {
     return $this->name . $this->tuning .  "<br>";
   }
@@ -21,7 +21,7 @@ class cooper extends mini
 class cooperS extends cooper
 {
   var $trim = 's';
-  function fullName()
+  public function fullName()
   {
     return $this->name . $this->tuning . " " . $this->trim .  "<br>";
   }
