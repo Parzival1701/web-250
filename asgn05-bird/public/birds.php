@@ -120,7 +120,7 @@ $data_error = 'The table did not render';
  *   Backyard tips
  * */
 ?>
-     <table id="Birds">
+     <table id="Birds" border="1">
       <tr>
         <th>Common Name</th>
         <th>Scientific Name</th>
@@ -147,6 +147,20 @@ $data_error = 'The table did not render';
  * $bird->wingspan_cm() rather than reaching for the property.
  */
 
-?>
+<?php foreach ($birds as $bird) { ?>
 
+<tr>
+  <td><?php echo h($bird->common_name); ?></td>
+  <td><em><?php echo h($bird->scientific_name); ?></em></td>
+  <td><?php echo h($bird->habitat); ?></td>
+  <td><?php echo h($bird->food); ?></td>
+  <td><?php echo h($bird->nest_placement); ?></td>
+  <td><?php echo h($bird->behavior); ?></td>
+  <td><?php echo h($bird->wingspan_cm()) . ' / ' . h($bird->wingspan_in()); ?></td>
+  <td><?php echo h($bird->weight()) . ' / ' . h($bird->weight_oz()); ?></td>
+  <td><?php echo h($bird->size_class()); ?></td>
+  <td><?php echo h($bird->conservation()); ?></td>
+  <td><?php echo h($bird->backyard_tips); ?></td>
+</tr>
+<?php } ?>
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

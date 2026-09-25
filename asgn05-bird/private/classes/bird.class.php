@@ -137,7 +137,7 @@ class Bird
       $this->conservation_id = $args['conservation_id'] ?? 1.00;
       $this->set_wingspan_cm($args['wingspan_cm']) ?? 0;
       $this->set_weight_g($args['weight_g']) ?? 0;
-      $this->count++;
+      static::$count++;
     }
 
   /*
@@ -182,7 +182,7 @@ class Bird
       return number_format($wingspan_in,2) . 'in';
     }
 
-    public function set_wingspan_in() {
+    public function set_wingspan_in($vale) {
     $this->wingspan_cm = floatval($value) / 0.393701 ;
   }
 
@@ -210,7 +210,7 @@ class Bird
    * why comment required: why self:: and not $this->?
     - Self is required because this is a protected constant, meaning that there are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class variables that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level variables.  
    */
-    public function condition() {
+    public function conservation() {
     if($this->conservation_id > 0) {
       return self::CONSERVATION_OPTIONS[$this->conservation_id];
     } else {
