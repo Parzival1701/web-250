@@ -32,8 +32,7 @@
  * why comment required: why can you set this from outside the class at all,
  * and why is that better than editing parsecsv.class.php?
  */
-
-
+ParseCSV::$delimiter = '|';
 
 /*
  * TODO 2 -- Parse the file
@@ -42,7 +41,9 @@
  * parse(). Build the path from the constant, not a relative path like
  * '../private/wnc-birds.csv'.
  */
-
+$csv = new ParseCSV;
+$csv->file(PRIVATE_PATH . '/wnc-birds.csv');
+$bird_array = $csv->parse();
 
 
 /*
@@ -56,8 +57,7 @@
  * its header, nav, and footer. Test it by renaming the CSV, loading the
  * page, and then renaming it back.
  */
-
-
+$data_error = 'The table did not render';
 
 /*
  * TODO 4 -- Build the objects
@@ -66,9 +66,12 @@
  * an array. In bicycles.php this happens inside the table markup; do it up
  * here instead so the markup below stays readable.
  */
-
-
-
+  $birds = [];
+  if ($bird_array !== false) {
+    foreach($bird_array as $args) { 
+       $birds[] = new Bird($args); 
+    }
+    }
 /*
  * OPTIONAL -- "go further" options 1 and 2 (sort and filter)
  *
@@ -115,6 +118,22 @@
  *   Size class
  *   Conservation
  *   Backyard tips
+ * */
+?>
+     <table id="Birds">
+      <tr>
+        <th>Common Name</th>
+        <th>Scientific Name</th>
+        <th>Habitat</th>
+        <th>Food</th>
+        <th>Nest Placement</th>
+        <th>Behavior</th>
+        <th>wingspan cm</th>
+        <th>weight kg</th>
+        <th>conservation ID</th>
+        <th>Backyard tips</th>
+      </tr>
+/*
  *
  * TODO 8 -- The rows
  *
@@ -127,6 +146,7 @@
  * Call your methods, not the raw properties, for anything measured or coded:
  * $bird->wingspan_cm() rather than reaching for the property.
  */
+
 ?>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>
