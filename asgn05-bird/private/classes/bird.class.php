@@ -18,7 +18,8 @@
  * comment that only restates the code earns no credit.
  */
 
-class Bird {
+class Bird
+{
 
   /*
    * TODO 1 -- Properties
@@ -40,7 +41,16 @@ class Bird {
    * why comment required: on the first protected property, explain why it is
    * protected when common_name is public.
    */
-
+  public $common_name;
+  public $scientific_name;
+  public $habitat;
+  public $food;
+  public $nest_placement;
+  public $behavior;
+  public $backyard_tips;
+  protected $wingspan_cm;
+  protected $weight_g;
+  protected $conservation_id;
 
 
   /*
@@ -53,7 +63,7 @@ class Bird {
    * method on ParseCSV. They often report the same number. Say when they
    * would not.
    */
-
+  public static $count = 0;
 
 
   /*
@@ -68,7 +78,8 @@ class Bird {
    * an HTML form would read them, which is the reason they are public.
    */
 
-
+  public const HABITATS = ['Open woodlands', 'Forests', 'Scrub', 'Scrub', 'High elevation', 'Fields', 'Wetland', 'Cliff'];
+  public const FOOD_TYPES = ['Insects', 'Nectar', 'Omnivore', 'Seeds', 'Small mammals', 'Fish', 'Birds', 'Nuts'];
 
   /*
    * TODO 4 -- A protected constant for the conservation scale
@@ -86,7 +97,12 @@ class Bird {
    * HABITATS is public? And why does the CSV store the number 3 instead of
    * the words "Extreme concern"?
    */
-
+  protected const CONSERVATION_OPTIONS = [
+    1 => 'Low concern',
+    2 => 'Moderate concern',
+    3 => 'Extreme concern',
+    4 => 'Extinct'
+  ];
 
 
   /*
@@ -110,7 +126,19 @@ class Bird {
    * column? What happens if someone reorders the columns in the CSV?
    */
 
-
+    public function __construct($args = []) {
+      $this->common_name = $args['common_name'] ?? '';
+      $this->scientific_name = $args['scientific_name'] ?? '';
+      $this->habitat = $args['habitat'] ?? '';
+      $this->food = $args['food'] ?? '';
+      $this->nest_placement = $args['nest_placement'] ?? '';
+      $this->behavior = $args['behavior'] ?? '';
+      $this->backyard_tips = $args['backyard_tips'] ?? '';
+      $this->conservation_id = $args['conservation_id'] ?? 1.00;
+      $this->set_wingspan_cm($args['wingspan_cm']) ?? 0;
+      $this->set_weight_g($args['weight_g']) ?? 0;
+      $this->count++;
+    }
 
   /*
    * TODO 6 -- Getters and setters for wingspan
@@ -128,8 +156,35 @@ class Bird {
    * why comment required: on set_wingspan_in(), explain why a setter named
    * for inches writes to a property measured in centimeters.
    */
+    // public function set_weight_g($value) {
+    //   $this->weight_g = floatval($value);
+    // }
 
+    public function weight() {
+      return number_format($this->weight_g, 2) . 'g';
+    }
 
+     public function weight_oz() {
+    $weight_oz = floatval($this->weight_g) * 0.0352740;
+    return number_format($weight_oz,2) . 'oz';
+  }
+
+    public function wingspan_cm() {
+      return number_format($this->wingspan_cm, 2) . 'cm';
+    }
+
+    public function set_wingspan_cm($value) {
+      $this->wingspan_cm = floatval($value);
+    }
+
+    public function wingspan_in() {
+      $wingspan_in = floatval($this->wingspan_cm) * 0.393701;
+      return number_format($wingspan_in,2) . 'in';
+    }
+
+    public function set_wingspan_in() {
+    $this->wingspan_cm = floatval($value) / 0.393701 ;
+  }
 
   /*
    * TODO 7 -- Getters and setters for weight
@@ -153,8 +208,15 @@ class Bird {
    * temporarily setting a conservation_id of 99 in the CSV.
    *
    * why comment required: why self:: and not $this->?
+    - Self is required because this is a protected constant, meaning that there are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class properties that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level properties.  
    */
-
+    public function condition() {
+    if($this->conservation_id > 0) {
+      return self::CONSERVATION_OPTIONS[$this->conservation_id];
+    } else {
+      return "Unknown";
+    }
+  }
 
 
   /*
@@ -189,9 +251,4 @@ class Bird {
    *
    * why comment required: state which approach you chose and why.
    */
-
-
-
 }
-
-?>
