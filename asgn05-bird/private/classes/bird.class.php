@@ -78,7 +78,7 @@ class Bird
    * an HTML form would read them, which is the reason they are public.
    */
 
-  public const HABITATS = ['Open woodlands', 'Forests', 'Scrub', 'Scrub', 'High elevation', 'Fields', 'Wetland', 'Cliff'];
+  public const HABITATS = ['Open woodlands', 'Forests', 'Scrub', 'High elevation', 'Fields', 'Wetland', 'Cliff'];
   public const FOOD_TYPES = ['Insects', 'Nectar', 'Omnivore', 'Seeds', 'Small mammals', 'Fish', 'Birds', 'Nuts'];
 
   /*
@@ -156,9 +156,9 @@ class Bird
    * why comment required: on set_wingspan_in(), explain why a setter named
    * for inches writes to a property measured in centimeters.
    */
-    // public function set_weight_g($value) {
-    //   $this->weight_g = floatval($value);
-    // }
+    public function set_weight_g($value) {
+      $this->weight_g = floatval($value);
+    }
 
     public function weight() {
       return number_format($this->weight_g, 2) . 'g';
@@ -208,7 +208,7 @@ class Bird
    * temporarily setting a conservation_id of 99 in the CSV.
    *
    * why comment required: why self:: and not $this->?
-    - Self is required because this is a protected constant, meaning that there are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class properties that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level properties.  
+    - Self is required because this is a protected constant, meaning that there are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class variables that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level variables.  
    */
     public function condition() {
     if($this->conservation_id > 0) {
@@ -229,9 +229,19 @@ class Bird
    * hummingbird is 11 cm, the raven is 130 cm) and pick thresholds that put a
    * useful number of birds in each group. Document the numbers you chose in
    * your comment and say why they suit this data.
+   -small = less than 28cm 
+   -medium is between 28 and 63 cm 
+   -large is bigger than 63 cm
    */
-
-
+    public function size_class() {
+      if ($this->wingspan_cm < 28 ) {
+        return 'small';
+      } elseif ($this->wingspan_cm >28 and $this->wingspan_cm <63) {
+        return 'medium';
+      }else { 
+        return 'large';
+      }
+    }
 
   /*
    * TODO 10 -- display_name()
@@ -251,4 +261,8 @@ class Bird
    *
    * why comment required: state which approach you chose and why.
    */
+
+  public function display_name() {
+    return  $this->common_name . '' . '<em>' . $this->scientific_name . '</em>';
+  }
 }
