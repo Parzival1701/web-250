@@ -24,7 +24,9 @@ class ParseCSV {
   /*
    * why comment required (for your submission): this is a static PROPERTY,
    * while Bicycle::CATEGORIES is a CONSTANT. Why is each the right choice
-   * for its job? And why is this static rather than an ordinary property?
+   * for its job? And why is this static rather than an ordinary property? 
+   * 
+   * This is static because it can be applied class wide when changed. It does not need to be instantiated to be modified or used. 
    *
    * Note the value: a comma. That is correct and you should leave it.
    * wnc-birds.csv does not use commas, which is a problem birds.php solves,

@@ -40,6 +40,8 @@ class Bird
    *
    * why comment required: on the first protected property, explain why it is
    * protected when common_name is public.
+   * 
+   * The weight and conservation id are protected because they are important to each bird but should not be able to be called and changed anywhere in the code. they are unique to each bird and should be set with setters. 
    */
   public $common_name;
   public $scientific_name;
@@ -62,6 +64,8 @@ class Bird
    * why comment required: explain how this differs from the row_count()
    * method on ParseCSV. They often report the same number. Say when they
    * would not.
+   * 
+   * The row count refers to the number of dynamically added rows to the table where as the static counter refers to every instance of the class used. There could be a class instance that is not added to the table which would throw the numbers off. 
    */
   public static $count = 0;
 
@@ -134,7 +138,7 @@ class Bird
       $this->nest_placement = $args['nest_placement'] ?? '';
       $this->behavior = $args['behavior'] ?? '';
       $this->backyard_tips = $args['backyard_tips'] ?? '';
-      $this->conservation_id = $args['conservation_id'] ?? 1.00;
+      $this->conservation_id = $args['conservation_id'] ?? 1;
       $this->set_wingspan_cm($args['wingspan_cm']) ?? 0;
       $this->set_weight_g($args['weight_g']) ?? 0;
       static::$count++;
@@ -182,9 +186,11 @@ class Bird
       return number_format($wingspan_in,2) . 'in';
     }
 
-    public function set_wingspan_in($vale) {
-    $this->wingspan_cm = floatval($value) / 0.393701 ;
+    public function set_wingspan_in($value) {
+    $this->wingspan_cm = (floatval($value) / 0.393701);
   }
+
+ 
 
   /*
    * TODO 7 -- Getters and setters for weight
@@ -211,7 +217,7 @@ class Bird
     - Self is required because this is a protected constant, meaning that there are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class variables that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level variables.  
    */
     public function conservation() {
-    if($this->conservation_id > 0) {
+    if($this->conservation_id > 0 and $this->conservation_id < 5) {
       return self::CONSERVATION_OPTIONS[$this->conservation_id];
     } else {
       return "Unknown";

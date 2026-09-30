@@ -1,6 +1,6 @@
 <?php
-  require_once('../private/initialize.php');
-  $page_title = 'Sightings';
+require_once('../private/initialize.php');
+$page_title = 'Sightings';
 ?>
 
 <?php
@@ -31,6 +31,8 @@
  *
  * why comment required: why can you set this from outside the class at all,
  * and why is that better than editing parsecsv.class.php?
+ * 
+ * You can set this anywhere in the code because it is a public, and the benefit fo modifying it here instead of in the parse file is that it keeps the code reusable. you can use the same class across multiple classes.
  */
 ParseCSV::$delimiter = '|';
 
@@ -66,12 +68,12 @@ $data_error = 'The table did not render';
  * an array. In bicycles.php this happens inside the table markup; do it up
  * here instead so the markup below stays readable.
  */
-  $birds = [];
-  if ($bird_array !== false) {
-    foreach($bird_array as $args) { 
-       $birds[] = new Bird($args); 
-    }
-    }
+$birds = [];
+if ($bird_array !== false) {
+  foreach ($bird_array as $args) {
+    $birds[] = new Bird($args);
+  }
+}
 /*
  * OPTIONAL -- "go further" options 1 and 2 (sort and filter)
  *
@@ -98,6 +100,9 @@ $data_error = 'The table did not render';
  * row_count() method. If you added the static counter to Bird, print that
  * too. Notice whether the two numbers agree.
  */
+echo h('Records in the file: ' . $csv->row_count()) . '<hr>';
+echo h('Bird objects: ' . Bird::$count) . '<hr>';
+
 ?>
 
 <?php
@@ -120,20 +125,24 @@ $data_error = 'The table did not render';
  *   Backyard tips
  * */
 ?>
-     <table id="Birds" border="1">
-      <tr>
-        <th>Common Name</th>
-        <th>Scientific Name</th>
-        <th>Habitat</th>
-        <th>Food</th>
-        <th>Nest Placement</th>
-        <th>Behavior</th>
-        <th>wingspan cm</th>
-        <th>weight kg</th>
-        <th>conservation ID</th>
-        <th>Backyard tips</th>
-      </tr>
-/*
+<table id="Birds" border="1">
+  <thead>
+    <tr>
+      <th scope="col">Common Name</th>
+      <th scope="col">Scientific Name</th>
+      <th scope="col">Habitat</th>
+      <th scope="col">Food</th>
+      <th scope="col">Nest Placement</th>
+      <th scope="col">Behavior</th>
+      <th scope="col">wingspan cm</th>
+      <th scope="col">weight kg</th>
+      <th scope="col">Size</th>
+      <th scope="col">conservation ID</th>
+      <th scope="col">Backyard tips</th>
+    </tr>
+  </thead>
+  <?php
+  /*
  *
  * TODO 8 -- The rows
  *
@@ -146,21 +155,25 @@ $data_error = 'The table did not render';
  * Call your methods, not the raw properties, for anything measured or coded:
  * $bird->wingspan_cm() rather than reaching for the property.
  */
-
-<?php foreach ($birds as $bird) { ?>
-
-<tr>
-  <td><?php echo h($bird->common_name); ?></td>
-  <td><em><?php echo h($bird->scientific_name); ?></em></td>
-  <td><?php echo h($bird->habitat); ?></td>
-  <td><?php echo h($bird->food); ?></td>
-  <td><?php echo h($bird->nest_placement); ?></td>
-  <td><?php echo h($bird->behavior); ?></td>
-  <td><?php echo h($bird->wingspan_cm()) . ' / ' . h($bird->wingspan_in()); ?></td>
-  <td><?php echo h($bird->weight()) . ' / ' . h($bird->weight_oz()); ?></td>
-  <td><?php echo h($bird->size_class()); ?></td>
-  <td><?php echo h($bird->conservation()); ?></td>
-  <td><?php echo h($bird->backyard_tips); ?></td>
-</tr>
-<?php } ?>
-<?php include(SHARED_PATH . '/public_footer.php'); ?>
+  if (isset($bird_array)) {
+    foreach ($birds as $bird) { ?>
+      <tbody>
+        <tr scope="row">
+          <td><?php echo h($bird->common_name); ?></td>
+          <td><em><?php echo h($bird->scientific_name); ?></em></td>
+          <td><?php echo h($bird->habitat); ?></td>
+          <td><?php echo h($bird->food); ?></td>
+          <td><?php echo h($bird->nest_placement); ?></td>
+          <td><?php echo h($bird->behavior); ?></td>
+          <td><?php echo h($bird->wingspan_cm()) . ' / ' . h($bird->wingspan_in()); ?></td>
+          <td><?php echo h($bird->weight()) . ' / ' . h($bird->weight_oz()); ?></td>
+          <td><?php echo h($bird->size_class()); ?></td>
+          <td><?php echo h($bird->conservation()); ?></td>
+          <td><?php echo h($bird->backyard_tips); ?></td>
+        </tr>
+      </tbody>
+  <?php }
+  } else {
+    echo 'sorry no birds';
+  } ?>
+  <?php include(SHARED_PATH . '/public_footer.php'); ?>

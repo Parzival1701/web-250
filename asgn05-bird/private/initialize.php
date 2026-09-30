@@ -61,7 +61,7 @@
   // }
 
   /*
-   * -- Autoload
+   * -- Autoload active 
    *
    * Called automatically when PHP meets a class name it has not seen. Three
    * details matter here:
