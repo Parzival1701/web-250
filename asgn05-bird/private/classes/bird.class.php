@@ -41,7 +41,7 @@ class Bird
    * why comment required: on the first protected property, explain why it is
    * protected when common_name is public.
    * 
-   * The weight and conservation id are protected because they are important to each bird but should not be able to be called and changed anywhere in the code. they are unique to each bird and should be set with setters. 
+   * The weight, wingspan and conservation id are protected because they are important to each bird but should not be able to be called and changed anywhere in the code. they are unique to each bird and should be set with setters. 
    */
   public $common_name;
   public $scientific_name;
@@ -65,7 +65,7 @@ class Bird
    * method on ParseCSV. They often report the same number. Say when they
    * would not.
    * 
-   * The row count refers to the number of dynamically added rows to the table where as the static counter refers to every instance of the class used. There could be a class instance that is not added to the table which would throw the numbers off. 
+   * The row count refers to the number of dynamically added rows to the table where as the static counter refers to every instance of the class ever made. There could be a class instance that is not added to the table which would throw the numbers off or a skipped row and a bird added outside of the csv. 
    */
   public static $count = 0;
 
@@ -100,6 +100,8 @@ class Bird
    * why comment required: two things to address. Why is this protected when
    * HABITATS is public? And why does the CSV store the number 3 instead of
    * the words "Extreme concern"?
+   * 
+   * It is private because it is something that is a fixed value from a short list and does not need to be added publicly. It is listed as a number to save space and be added dynamically. Its makes more sense to centralize as much as possible and keeping the values in an associative array allows it to be centralized to the class. 
    */
   protected const CONSERVATION_OPTIONS = [
     1 => 'Low concern',
@@ -128,6 +130,8 @@ class Bird
    *
    * why comment required: why one $args array instead of a parameter for each
    * column? What happens if someone reorders the columns in the CSV?
+   * 
+   * If the values are in an array they are centrally located and easier to manage. If you change the order of the columns in the csv the values should stay the same because the keys are still the same in the key value pairs. 
    */
 
     public function __construct($args = []) {
@@ -159,6 +163,8 @@ class Bird
    *
    * why comment required: on set_wingspan_in(), explain why a setter named
    * for inches writes to a property measured in centimeters.
+   * 
+   * The setter for the inches uses the property in cm because that is the given value. It is the value taken from the csv. 
    */
     public function set_weight_g($value) {
       $this->weight_g = floatval($value);
@@ -214,7 +220,7 @@ class Bird
    * temporarily setting a conservation_id of 99 in the CSV.
    *
    * why comment required: why self:: and not $this->?
-    - Self is required because this is a protected constant, meaning that there are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class variables that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level variables.  
+    - Self is required because this is a class constant, meaning that they are class level entities that can be inherited, but do not exist in any particular instance. They are inherited class variables that can be accessed not modified. the self:: is the "$this->property" equivalent syntax for class level variables.  
    */
     public function conservation() {
     if($this->conservation_id > 0 and $this->conservation_id < 5) {
@@ -235,6 +241,8 @@ class Bird
    * hummingbird is 11 cm, the raven is 130 cm) and pick thresholds that put a
    * useful number of birds in each group. Document the numbers you chose in
    * your comment and say why they suit this data.
+   * these values are an attempt at an even distribution of the data based on wingsize. 
+   *
    -small = less than 28cm 
    -medium is between 28 and 63 cm 
    -large is bigger than 63 cm
@@ -266,6 +274,7 @@ class Bird
    * markup.
    *
    * why comment required: state which approach you chose and why.
+   * I chose to return a string with em tags added so that I can make the code on birds.php less crowded. 
    */
 
   public function display_name() {

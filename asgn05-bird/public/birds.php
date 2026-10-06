@@ -172,8 +172,10 @@ echo h('Bird objects: ' . Bird::$count) . '<hr>';
           <td><?php echo h($bird->backyard_tips); ?></td>
         </tr>
       </tbody>
+
   <?php }
   } else {
-    echo 'sorry no birds';
+    echo $data_error;
   } ?>
-  <?php include(SHARED_PATH . '/public_footer.php'); ?>
+</table>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

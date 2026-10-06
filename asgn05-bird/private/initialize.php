@@ -61,7 +61,7 @@
   // }
 
   /*
-   * -- Autoload active 
+   * -- Autoload active it allows me to dynamically load what I use. s
    *
    * Called automatically when PHP meets a class name it has not seen. Three
    * details matter here:
