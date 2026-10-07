@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+.env
+.env.*
+.log
+.zip
+Ex_Files_PHP_Object_Oriented_Programming
