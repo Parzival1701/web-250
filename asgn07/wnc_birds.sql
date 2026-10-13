@@ -18,12 +18,12 @@
 -- All actual JPEG files live in public/images/birds/.
 -- SQL stores metadata only; no BLOBs and no encoded image bytes.
 
-CREATE DATABASE IF NOT EXISTS wnc_birds
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
+-- CREATE DATABASE IF NOT EXISTS wnc_birds
+--     CHARACTER SET utf8mb4
+--     COLLATE utf8mb4_unicode_ci;
 
-USE wnc_birds;
-SET NAMES utf8mb4;
+-- USE wnc_birds;
+-- SET NAMES utf8mb4;
 
 -- 1. One row per bird SPECIES, not per individual animal.
 CREATE TABLE IF NOT EXISTS birds (
