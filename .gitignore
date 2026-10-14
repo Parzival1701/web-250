@@ -10,3 +10,5 @@ Desktop.ini
 Ex_Files_PHP_Object_Oriented_Programming
 db_credentials.php
 
+**/db_credentials.php
+.DS_Store
