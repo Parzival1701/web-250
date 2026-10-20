@@ -12,7 +12,7 @@ function countBirds(array $counts): int
 {
     $total = 0;
     foreach ($counts as $count) {
-        $total = $count;  // Deliberate logic error. Investigate before fixing.
+        $total += $count;  // Deliberate logic error. Investigate before fixing.
     }
     return $total;
 }
@@ -20,3 +20,4 @@ function countBirds(array $counts): int
 $counts = [2, 3, 4];
 $result = countBirds($counts);
 print "Birds counted: {$result}\n";
+
