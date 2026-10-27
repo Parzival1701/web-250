@@ -21,7 +21,7 @@ final class Bird
   public static function set_database(PDO $pdo): void
   {
     // TODO: Save the PDO connection in the static property.
-    self::$database = $pdo;
+      self::$database = $pdo;
   }
 
   /** @return Bird[] */

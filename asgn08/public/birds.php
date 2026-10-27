@@ -8,7 +8,6 @@ require_once dirname(__DIR__) . '/private/initialize.php';
 try {
     // Use the existing asgn07 Database connection class and credentials.
     $pdo = (isset($pdo) && $pdo instanceof PDO) ? $pdo : Database::connect();
-    Bird::set_database($pdo);
     $birds = Bird::find_all();
 } catch (PDOException $e) {
     error_log($e->getMessage());
