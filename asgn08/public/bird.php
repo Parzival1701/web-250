@@ -4,17 +4,29 @@
 // and handle both an invalid ID (400) and a missing bird (404).
 // Use htmlspecialchars() or your existing h() helper for database text.
 require_once('../private/initialize.php');
+
+// $id = $_GET['id'] ?? '';
+// 
+$id = filter_input(
+INPUT_GET,
+'id',
+FILTER_VALIDATE_INT,
+['options' => ['min_range' => 1]]
+);
+if ($id === null || $id === false) {
+  http_response_code(400);
+  exit;
+} 
 try {
-    $pdo = (isset($pdo) && $pdo instanceof PDO) ? $pdo : Database::connect();
-    Bird::set_database($pdo);
-    $birds = Bird::find_all();
+  $bird = Bird::find_by_id($id);
 } catch (PDOException $e) {
     error_log($e->getMessage());
     http_response_code(500);
-    exit('Could not load the bird sandbox. Check the database connection.');
+    exit('Sorry, something went wrong. Please try again later.');
 }
-$id = $_GET['id'] ?? '';
-$bird = Bird::find_by_id($id);
+if ($bird === null) {
+  http_response_code(404);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,27 +35,32 @@ $bird = Bird::find_by_id($id);
     <h1>Bird Details</h1>
     <p>TODO: Display the selected bird and provide a link back to birds.php.</p>
        <p>
-    <a href="index.php">Back to Home</a>
+    <a href="birds.php">Back to directory</a>
     </p>
    <table border="1">
     <thead>
         <tr>
             <th scope="col">Common Name</th>
             <th scope="col">Scientific Name</th>
-            <th scope="col">Primary Habitat</th>
+            <th scope="col">Family Name</th>
+             <th scope="col">Seasonal Status</th>
             <th scope="col">Seasonal Status</th>
+            <th scope="col">Description</th>
+             <th scope="col">Recorded ID</th>
         </tr>
     </thead>
 
     <tbody>
-    <?php  foreach($birds as $bird) { ?>
+    
     <tr>
       <td><?= h($bird->common_name)?></td>
       <td><?= h($bird->scientific_name)?></td>
-      <td><?= h($bird->primary_habitat)?></td>
+      <td><?= h($bird->family_name)?></td>
       <td><?= h($bird->seasonal_status)?></td>
+      <td><?= h($bird->seasonal_status)?></td>
+      <td><?= h($bird->description)?></td>
+      <td><?= h($bird->id)?></td>
     </tr>
-   <?php } ?>
     </tbody>
 </table>
 </body>
