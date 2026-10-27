@@ -31,6 +31,7 @@ try {
             <th scope="col">Scientific Name</th>
             <th scope="col">Primary Habitat</th>
             <th scope="col">Seasonal Status</th>
+            <th scope="col">View Details</th>
         </tr>
     </thead>
 
@@ -41,6 +42,7 @@ try {
       <td><?= h($bird->scientific_name)?></td>
       <td><?= h($bird->primary_habitat)?></td>
       <td><?= h($bird->seasonal_status)?></td>
+      <td><a href="bird.php?id=<?= (int) $bird->id ?>">View details</a></td>
     </tr>
    <?php } ?>
     </tbody>
