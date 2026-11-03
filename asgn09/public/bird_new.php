@@ -20,10 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // asgn09 TODO:
   // Require at least common_name and scientific_name.
   if ($bird->common_name === '' || $bird->scientific_name === '') {
-  $error_message = 'Common name and scientific name are required.';
+    $error_message = 'Common name and scientific name are required.';
   }
   // asgn09 TODO:
   // If the required values are present, call $bird->create().
+  if ($bird->create()) {
+    header('Location: birds.php');
+    exit;
+  }
+  $error_message = 'The bird could not be created.';
   // On success, redirect to birds.php and exit.
   // Otherwise, set a short error message.
 }
