@@ -16,13 +16,13 @@ $birds = Bird::find_all();
     <h1>Bird Directory</h1>
 
     <p><a href="index.php">Back to index</a></p>
-
+    <p><a href="bird_new.php">Create Bird</a></p>
     <!-- asgn09 TODO: Add the Create Bird link here, above the table. -->
 
     <?php if ($birds === []): ?>
         <p>No birds were found.</p>
     <?php else: ?>
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th scope="col">Common Name</th>
