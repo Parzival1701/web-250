@@ -126,12 +126,55 @@ final class Bird
     }
     return $result;
   }
-  // Follow the assignment tutorial carefully:
-  // 1. Check self::$database.
-  // 2. Build INSERT INTO birds (...) VALUES (:placeholders...).
-  // 3. prepare($sql).
-  // 4. bindValue() each Bird property.
-  // 5. execute().
-  // 6. On success, assign lastInsertId() to $this->id.
-  // 7. Return the result.
+
+  public function update(): bool
+  {
+    if (self::$database === null) {
+      throw new RuntimeException('Call set_database() before update().');
+    }
+    if ($this->id <= 0) {
+      return false;
+    }
+    $sql = 'UPDATE birds SET 
+       common_name = :common_name,
+       scientific_name = :scientific_name,
+       family_name = :family_name,
+       primary_habitat = :primary_habitat,
+       seasonal_status =  :seasonal_status,
+       description = :description
+      WHERE id = :id
+';
+    $statement = self::$database->prepare($sql);
+    $statement->bindValue(':common_name', $this->common_name, PDO::PARAM_STR);
+    $statement->bindValue(':scientific_name', $this->scientific_name, PDO::PARAM_STR);
+    $statement->bindValue(':family_name', $this->family_name, PDO::PARAM_STR);
+    $statement->bindValue(':primary_habitat', $this->primary_habitat, PDO::PARAM_STR);
+    $statement->bindValue(':seasonal_status', $this->seasonal_status, PDO::PARAM_STR);
+    $statement->bindValue(':description', $this->description, PDO::PARAM_STR);
+    $statement->bindValue(':id', $this->id, PDO::PARAM_INT);
+    return $statement->execute();
+  }
+
+  public function delete(): bool
+  {
+    if (self::$database === null) {
+      throw new RuntimeException('Call set_database() before delete().');
+    }
+
+    if ($this->id <= 0) {
+      return false;
+    }
+
+    $sql = 'DELETE FROM birds WHERE id = :id';
+    $statement = self::$database->prepare($sql);
+    $statement->bindValue(':id', $this->id, PDO::PARAM_INT);
+    $statement->execute();
+
+    if ($statement->rowCount() === 1) {
+      $this->id = 0;
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -1,21 +1,20 @@
-# WEB 250 - asgn09: Create a Record
+# WEB-250 Assignment 10: Update and Delete a Bird
 
-I created a Bird class method that would take an user populated object created from bird_new.php's form and insert the values into the sql database using prepared statements and bound values. This create() method fulfills the create portion of CRUD.Bird.php, which holds the Bird class acts as the model. The birds.php acts as the view displaying the use input being added to the database. The application is one step close to toward a full MVC layout, but not quite there yet. 
+For this assignment, I built on asgn09 by adding the ability to update and delete bird records. This completes the four CRUD operations: Create, Read, Update, and Delete.
 
-# How prepared statements work
-The pdo prepared statement provides security by first sending the layout of the sql statement to the database and then adding the user input as variables afterword. The user input is then just treated as input and sql knows not to read it as more than that. 
+I added an `update()` method to the Bird class to save changes to existing records and a `delete()` method to remove records from the database. Both methods use prepared statements and the bird's ID to make sure the correct record is changed.
 
-## Assignment goal
+The edit page uses GET to load a bird's current information and POST to save changes. The delete page displays a confirmation before using POST to delete the selected bird.
 
-Add the **Create** portion of CRUD using:
+## Running Locally
 
-- `public/bird_new.php`
-- a `Bird::create()` instance method
-- a PDO prepared `INSERT`
-- named placeholders and `bindValue()`
+1. Place the project in MAMP's `htdocs` folder.
+2. Set up `private/db_credentials.php` using the example file.
+3. Start MAMP and visit:
 
-## Database
+   `http://localhost:8888/web-250/asgn10-birds/public/birds.php`
 
-Use the existing `wnc_birds` database and `birds` table from the previous assignments.
+## Links
 
-
+- **GitHub:** https://github.com/Parzival1701/web-250
+- **Live Site:** https://andrewjonesdev.com/web250/asgn10-birds/public/birds.php
