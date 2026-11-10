@@ -30,6 +30,8 @@ $birds = Bird::find_all();
                     <th scope="col">Primary Habitat</th>
                     <th scope="col">Seasonal Status</th>
                     <th scope="col">Details</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +42,8 @@ $birds = Bird::find_all();
                         <td><?= h($bird->primary_habitat) ?></td>
                         <td><?= h($bird->seasonal_status) ?></td>
                         <td><a href="bird.php?id=<?= (int) $bird->id ?>">View details</a></td>
+                        <td><a href="bird_edit.php?id=<?= (int) $bird->id ?>">Update</a></td>
+                         <td><a href="bird_delete.php?id=<?= (int) $bird->id ?>">Delete</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
