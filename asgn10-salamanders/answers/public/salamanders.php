@@ -36,8 +36,8 @@ $salamanders = Salamander::find_all();
                 <td><?= h($salamander->primary_habitat) ?></td>
                 <td><?= h($salamander->field_note) ?></td>
                 <td>
-                    <!-- SANDBOX EXERCISE 1: Add an Update link here. -->
-                    <!-- SANDBOX EXERCISE 2: Add a Delete link here. -->
+                    <a href="salamander_edit.php?id=<?= (int) $salamander->id ?>">Update</a>
+                    <a href="salamander_delete.php?id=<?= (int) $salamander->id ?>">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>
