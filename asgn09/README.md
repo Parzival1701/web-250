@@ -18,4 +18,14 @@ Add the **Create** portion of CRUD using:
 
 Use the existing `wnc_birds` database and `birds` table from the previous assignments.
 
+## Running locally\
 
+1. Start MAMP.
+2. Make sure the `wnc_birds` database and `birds` table exist.
+3. Open `http://localhost:port-number/web-250/asgn09/public/birds.php` in a browser.
+4. Click the link to create a bird, submit the form, and confirm the new bird appears in the list.
+
+## Links
+
+- GitHub: https://github.com/Parzival1701/web-250/tree/main/asgn09
+- Hosted site: https://andrewjonesdev.com/web250/asgn09/public/index.php
