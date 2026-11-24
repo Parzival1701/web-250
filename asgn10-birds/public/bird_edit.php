@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $bird !== null) {
 
 <head>
   <meta charset="utf-8">
-  <title>Update Salamander</title>
+  <title>Update Bird</title>
 </head>
 
 <body>

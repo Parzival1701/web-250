@@ -16,5 +16,5 @@ The edit page uses GET to load a bird's current information and POST to save cha
 
 ## Links
 
-- **GitHub:** https://github.com/Parzival1701/web-250
+- **GitHub:** https://github.com/Parzival1701/web-250/tree/main/asgn10-birds
 - **Live Site:** https://andrewjonesdev.com/web250/asgn10-birds/public/birds.php
